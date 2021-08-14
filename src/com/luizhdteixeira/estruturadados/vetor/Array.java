@@ -42,7 +42,15 @@ public class Array {
         return this.elements[position];
     }
 
-    public int find(String element) { return 1; }
+    public int find(String element) {
+        // Sequence find
+        for (int i = 0; i < this.size; i++) {
+            if (this.elements[i].equals(element)) {
+                return i;
+            }
+        }
+        return -1;
+    }
     public int size() {return 1;}
 
     @Override
