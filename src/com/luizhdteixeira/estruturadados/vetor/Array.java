@@ -10,7 +10,7 @@ public class Array {
         this.size = 0;
     }
 
-    public int getSize() {
+    public int size() {
         return this.size;
     }
 
@@ -32,7 +32,22 @@ public class Array {
             this.size++;
         }
     }
-    public void add(int position, String element) {}
+
+    public void add(int position, String element) {
+        if (!(position >= 0 && position < elements.length)) {
+            throw new IllegalArgumentException("Position invalid");
+        }
+
+        // move all elements
+        for (int i = size-1; i >= position ; i--) {
+            elements[i+1] = elements[i];
+        }
+
+        // add element in position
+        elements[position] = element;
+        size++;
+    }
+
     public void remove(int position) {}
 
     public String find(int position) {
@@ -43,7 +58,7 @@ public class Array {
     }
 
     public int find(String element) {
-        // Sequence find
+        // Sequential search
         for (int i = 0; i < this.size; i++) {
             if (this.elements[i].equals(element)) {
                 return i;
@@ -51,7 +66,6 @@ public class Array {
         }
         return -1;
     }
-    public int size() {return 1;}
 
     @Override
     public String toString() {

@@ -12,7 +12,7 @@ public class Classroom04 {
         a.add("element 2");
         a.add("element 3");
 
-        System.out.println(a.getSize());
+        System.out.println(a.size());
         System.out.println(a);
     }
 }
