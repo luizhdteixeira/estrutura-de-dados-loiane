@@ -34,7 +34,14 @@ public class Array {
     }
     public void add(int position, String element) {}
     public void remove(int position) {}
-    public String find(int position) { return null;}
+
+    public String find(int position) {
+        if (!(position >= 0 && position < size)) {
+            throw new IllegalArgumentException("Position invalid");
+        }
+        return this.elements[position];
+    }
+
     public int find(String element) { return 1; }
     public int size() {return 1;}
 
