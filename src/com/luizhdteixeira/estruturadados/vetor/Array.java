@@ -2,7 +2,7 @@ package com.luizhdteixeira.estruturadados.vetor;
 
 public class Array {
 
-    private final String[] elements;
+    private String[] elements;
     private int size;
 
     public Array(int capacity) {
@@ -26,14 +26,18 @@ public class Array {
     }*/
 
     // Efficient method
-    public void add(String element) {
+    public boolean add(String element) {
+        addSize();
         if (this.size < this.elements.length) {
             this.elements[this.size] = element;
             this.size++;
+            return true;
         }
+        return false;
     }
 
-    public void add(int position, String element) {
+    public boolean add(int position, String element) {
+        addSize();
         if (!(position >= 0 && position < elements.length)) {
             throw new IllegalArgumentException("Position invalid");
         }
@@ -46,6 +50,17 @@ public class Array {
         // add element in position
         elements[position] = element;
         size++;
+        return true;
+    }
+
+    private void addSize() {
+        if (size == elements.length) {
+            String[] newElements = new String[elements.length * 2];
+            for (int i = 0; i < elements.length; i++) {
+                newElements[i] = elements[i];
+            }
+            elements = newElements;
+        }
     }
 
     public void remove(int position) {}
@@ -81,8 +96,4 @@ public class Array {
         s.append("]");
         return s.toString();
     }
-
-
-
-
 }
