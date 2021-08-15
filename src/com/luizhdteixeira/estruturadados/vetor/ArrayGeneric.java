@@ -1,12 +1,14 @@
 package com.luizhdteixeira.estruturadados.vetor;
 
-public class ArrayObject {
+import java.lang.reflect.Array;
 
-    private Object[] elements;
+public class ArrayGeneric<T> {
+
+    private T[] elements;
     private int size;
 
-    public ArrayObject(int capacity) {
-        this.elements = new Object[capacity];
+    public ArrayGeneric(int capacity) {
+        this.elements = (T[]) new Object[capacity];
         this.size = 0;
     }
 
@@ -15,7 +17,7 @@ public class ArrayObject {
     }
 
     // Efficient method
-    public boolean add(Object element) {
+    public boolean add(T element) {
         addSize();
         if (this.size < this.elements.length) {
             this.elements[this.size] = element;
@@ -25,7 +27,7 @@ public class ArrayObject {
         return false;
     }
 
-    public boolean add(int position, String element) {
+    public boolean add(int position, T element) {
         addSize();
         verifyPosition(position, elements.length);
 
@@ -42,7 +44,7 @@ public class ArrayObject {
 
     private void addSize() {
         if (size == elements.length) {
-            Object[] newElements = new Object[elements.length * 2];
+            T[] newElements = (T[]) new Object[elements.length * 2];
             for (int i = 0; i < elements.length; i++) {
                 newElements[i] = elements[i];
             }
@@ -67,12 +69,12 @@ public class ArrayObject {
         }
     }
 
-    public Object find(int position) {
+    public T find(int position) {
         verifyPosition(position, size);
         return this.elements[position];
     }
 
-    public int find(Object element) {
+    public int find(T element) {
         // Sequential search
         for (int i = 0; i < this.size; i++) {
             if (this.elements[i].equals(element)) {
