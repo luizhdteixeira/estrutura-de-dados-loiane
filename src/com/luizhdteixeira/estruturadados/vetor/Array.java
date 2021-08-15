@@ -38,9 +38,7 @@ public class Array {
 
     public boolean add(int position, String element) {
         addSize();
-        if (!(position >= 0 && position < elements.length)) {
-            throw new IllegalArgumentException("Position invalid");
-        }
+        verifyPosition(position, elements.length);
 
         // move all elements
         for (int i = size-1; i >= position ; i--) {
@@ -63,12 +61,25 @@ public class Array {
         }
     }
 
-    public void remove(int position) {}
+    public void remove(int position) {
+        verifyPosition(position, size);
 
-    public String find(int position) {
-        if (!(position >= 0 && position < size)) {
+        // move all elements
+        for (int i = position; i < size-1 ; i++) {
+            elements[i] = elements[i+1];
+        }
+        size--;
+        elements[size+1] = null;
+    }
+
+    private void verifyPosition(int position, int length) {
+        if (!(position >= 0 && position < length)) {
             throw new IllegalArgumentException("Position invalid");
         }
+    }
+
+    public String find(int position) {
+        verifyPosition(position, size);
         return this.elements[position];
     }
 
