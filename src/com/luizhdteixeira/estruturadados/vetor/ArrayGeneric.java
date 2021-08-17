@@ -1,15 +1,18 @@
 package com.luizhdteixeira.estruturadados.vetor;
 
-import java.lang.reflect.Array;
-
 public class ArrayGeneric<T> {
 
     private T[] elements;
     private int size;
 
+    @SuppressWarnings("unchecked")
     public ArrayGeneric(int capacity) {
         this.elements = (T[]) new Object[capacity];
         this.size = 0;
+    }
+
+    private T elements(int position) {
+        return elements[position];
     }
 
     public int size() {
@@ -42,6 +45,7 @@ public class ArrayGeneric<T> {
         return true;
     }
 
+    @SuppressWarnings("unchecked")
     private void addSize() {
         if (size == elements.length) {
             T[] newElements = (T[]) new Object[elements.length * 2];
@@ -52,7 +56,7 @@ public class ArrayGeneric<T> {
         }
     }
 
-    public void remove(int position) {
+    public boolean remove(int position) {
         verifyPosition(position, size);
 
         // move all elements
@@ -60,7 +64,40 @@ public class ArrayGeneric<T> {
             elements[i] = elements[i+1];
         }
         size--;
-        elements[size+1] = null;
+        elements[size] = null;
+        return true;
+    }
+
+    // Exercise 03
+    public boolean remove(T element) {
+        if (element == null) {
+            for (int i = 0; i < size; i++) {
+                if (elements[i] == null) {
+                    return remove(i);
+                }
+            }
+        } else {
+            for (int i = 0; i < size; i++) {
+                if (element.equals(elements[i])) {
+                    return remove(i);
+                }
+            }
+        }
+        return false;
+    }
+
+    // Exercise 04
+    public T get(int position) {
+        verifyPosition(position, size);
+        return elements(position);
+    }
+
+    // Exercise 05
+    public void clear() {
+        for (int i = 0; i < size; i++) {
+            elements[i] = null;
+        }
+        size = 0;
     }
 
     private void verifyPosition(int position, int length) {
@@ -74,11 +111,39 @@ public class ArrayGeneric<T> {
         return this.elements[position];
     }
 
+    // Exercise 01
     public int find(T element) {
-        // Sequential search
-        for (int i = 0; i < this.size; i++) {
-            if (this.elements[i].equals(element)) {
-                return i;
+        if (element == null) {
+            for (int i = 0; i < size; i++) {
+                if (elements[i] == null) {
+                    return i;
+                }
+            }
+        } else {
+            // Sequential search
+            for (int i = 0; i < this.size; i++) {
+                if (this.elements[i].equals(element)) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
+    // Exercise 02
+    public int findLastIndexOf(T element) {
+        if (element == null) {
+            for (int i = size-1; i >= 0; i--) {
+                if (elements[i] == null) {
+                    return i;
+                }
+            }
+        } else {
+            // Sequential search
+            for (int i = size-1; i >= 0; i--) {
+                if (this.elements[i].equals(element)) {
+                    return i;
+                }
             }
         }
         return -1;

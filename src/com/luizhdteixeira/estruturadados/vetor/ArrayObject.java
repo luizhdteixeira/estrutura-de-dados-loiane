@@ -72,8 +72,9 @@ public class ArrayObject {
         return this.elements[position];
     }
 
+    // Exercise 01
     public int find(Object element) {
-        // Sequential search
+            // Sequential search
         for (int i = 0; i < this.size; i++) {
             if (this.elements[i].equals(element)) {
                 return i;
